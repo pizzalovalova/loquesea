@@ -1,0 +1,89 @@
+#include <stdio.h>
+
+
+// Falta agregar los usuarios predeterminados, junto con su saldo inicial asignado. LO HARE LUEGO.
+// fALTA DARTLE LECTURA A LA TAREA NUEVAMENTE DETENIDAMENTE (NOTA PARA LEO)
+
+int contrasena = 2511; //contrasena estableida para que pueda ingresar al cajero
+int SaldoenCuenta = 0; //saldo inicial del usuario (Cuenta)
+int Deposito; //Cantidad de dinero a depositar
+int Retiro; //Cantidad de dinero a retirar
+
+
+void autenticacion(){ // Funcion para autenticar al usuario y que este pueda entrar
+    char usuario[20];
+
+    printf("Ingrese su usuario: ");
+    scanf("%s", usuario);
+
+    printf("Ingrese su contrasena: ");
+    scanf("%d", &contrasena);
+    if (contrasena == 2511) {
+        printf("Bienvenido, %s!\n", usuario);
+    } else {
+        printf("Contrasena incorrecta. Acceso denegado.\n");
+        return; 
+    }
+}
+void SaldoDisponible(){ //Funcion para mostrar el saldo disponible 
+    printf("Bienvenido usuario, su saldo dispoible es de: %d\n", SaldoenCuenta);
+}
+void DepositoDin(){ //Funcion para realizar un deposito a la cuenta del usuario
+    printf("Ingrese la cantidad de dinero a depositar: ");
+    scanf("%d", &Deposito);
+    SaldoenCuenta = SaldoenCuenta + Deposito; // suma la cantidad con el saldo actual
+   
+    char respuesta; // para saber si quiere repetir o no el deposito
+    printf("Deposito exitoso. Su nuevo saldo es: %d\n", SaldoenCuenta);
+    printf("Desea realizar otro deposito? (s/n): ");
+    do //funcion para preguntar al usuario si desea realizar otro deposito, si la respuesta es diferente a s o n, se le volvera a preguntar hasta que ingrese una respuesta valida
+    {
+    scanf(" %c", &respuesta);
+    printf("cuanto desea depositar? \n");
+    scanf("%d", &Deposito);
+    SaldoenCuenta = SaldoenCuenta + Deposito;
+    printf("Deposito exitoso. Su nuevo saldo es: %d\n", SaldoenCuenta);
+    printf("Desea realizar otro deposito? (s/n): ");
+    } while (respuesta != 's' && respuesta != 'n');
+    
+}
+void RetiroDin(){ //Funcion para realizar un retiro de la cuenta del usuario
+    printf("Ingrese la cantidad de dinero a retirar: ");
+    scanf("%d", &Retiro);
+    if (Retiro <= SaldoenCuenta) {
+        SaldoenCuenta = SaldoenCuenta - Retiro; // resta la cantidad con el saldo actual
+        printf("Retiro exitoso. Su nuevo saldo es: %d\n", SaldoenCuenta);
+    } else {
+        printf("Fondos insuficientes para retirar. no se puede hacer el retiro.\n");
+    }
+char respuesta; // para saber si quiere repetir o no el retiro
+    do //funcion para preguntar al usuario si desea realizar otro retiro, si la respuesta es diferente a s o n, se le volvera a preguntar hasta que ingrese una respuesta valida
+    {
+    printf("Desea realizar otro retiro? (s/n): ");
+    scanf(" %c", &respuesta);
+    if (respuesta == 's') {
+        printf("cuanto desea retirar? \n");
+        scanf("%d", &Retiro);
+        if (Retiro <= SaldoenCuenta) {
+            SaldoenCuenta = SaldoenCuenta - Retiro; // resta la cantidad con el saldo actual
+            printf("Retiro exitoso. Su nuevo saldo es: %d\n", SaldoenCuenta);
+        } else {
+            printf("Fondos insuficientes para retirar. no se puede hacer el retiro.\n");
+        }
+    }
+    } while (respuesta != 's' && respuesta != 'n');
+
+}
+void Historial(){ //Funcion Extra. Yo en este caso la estoy haciendo para mostrar el historal de los cambios realizados
+// fALTA AGREGAR ESTA PARTEE
+}
+
+
+int main(){
+    autenticacion();
+    SaldoDisponible();
+    DepositoDin();
+    RetiroDin();
+    Historial();
+    return 0;
+}
