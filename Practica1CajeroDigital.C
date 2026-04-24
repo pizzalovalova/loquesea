@@ -21,16 +21,18 @@ struct Usuario{
 
 // Usuarios predeterminados con saldo inicial asignado
 struct Usuario usuarios[] = {
-    {"juancito25", "1234", 1250.0},
+    {"mamoncito", "1234", 1250.0},
     {"mariamonte", "1085", 1500.0},
     {"manon", "9012", 2700.0},
-    {"leo", "2511", 1205.0}
+    {"leo", "2511", 8080.0}
 };
 
 int NumDeUsuarios = 4; //num maximo de usuarios que se pueden autenticar, en este caso es 4 porque son los usuarios predeterminados que se han creado
 int usuarioActual = -1; // Indice del usuario autenticado
 
 void autenticacion(){ // Funcion para autenticar al usuario y que este pueda entrar
+    printf("Por favor, autentiquese para continuar.\n\n");
+   
     char UsuarioCliente[20];// usuario que ingresa el cliente para autenticarse 
     char ContrasenaCliente[20]; // contrasena que ingresa el cliente para autenticarse
     int intentos = 3; //max de intentos
@@ -68,7 +70,7 @@ void autenticacion(){ // Funcion para autenticar al usuario y que este pueda ent
 }
 
 void SaldoDisponible(){ //Funcion para mostrar el saldo disponible 
-    printf("Bienvenido usuario, su saldo dispoible es de: %.2f\n", SaldoenCuenta);
+    printf("Su saldo disponible es de: %.2f\n", SaldoenCuenta);
 }
 
 void DepositoDin(){ //Funcion para realizar un deposito a la cuenta del usuario
@@ -90,6 +92,7 @@ void DepositoDin(){ //Funcion para realizar un deposito a la cuenta del usuario
         depositos[numDepositos++] = Deposito; // registrar deposito
         printf("Deposito exitoso. Su nuevo saldo es: %.2f\n", SaldoenCuenta);
         printf("Desea realizar otro deposito? (s/n): ");
+        scanf(" %c", &respuesta);
     }
     } while (respuesta != 's' && respuesta != 'n');
     
@@ -164,10 +167,34 @@ void Historial(){//Funcion Extra. Yo en este caso la estoy haciendo para mostrar
 
 
 int main(){
+    printf("========== BIENVENIDO AL CAJERO DIGITAL ==========\n");
     autenticacion();
-    SaldoDisponible();
-    DepositoDin();
-    RetiroDin();
-    Historial();
+    int opcion;
+    do
+    {
+        printf("\n========== MENU ==========\n");
+        printf("Que desea hacer?\n 1. Consultar saldo disponible\n 2. Realizar un deposito\n 3. Realizar un retiro\n 4. Ver historial de cuenta\n 5. Salir\n");
+        scanf("%d", &opcion);
+        switch(opcion){
+            case 1:
+            SaldoDisponible();
+            break;
+        case 2:
+            DepositoDin();
+            break;
+        case 3:
+            RetiroDin();
+            break;
+        case 4:
+            Historial();
+            break;
+        case 5:
+            printf("Gracias por usar el cajero digital. Pase un buen dia.\n");
+            break;
+        default:
+            printf("Opcion no valida.\n");
+            break;
+        }   
+    } while (opcion != 5); // Permite que el usuario siga usando el cajero digital hasta que decida salir, si la opcion es diferente a 1,2,3,4 o 5, se le volvera a mostrar el menu hasta que ingrese una opcion valida
     return 0;
 }
