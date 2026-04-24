@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-// fALTA DARTLE LECTURA A LA TAREA NUEVAMENTE DETENIDAMENTE (NOTA PARA LEO)
 
 float SaldoenCuenta = 0; //saldo inicial del usuario (Cuenta)
 float Deposito; //Cantidad de dinero a depositar
